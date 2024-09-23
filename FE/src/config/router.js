@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../jsx/pages/authentication/Login";
 import SignUp from "../jsx/pages/authentication/Registration";
 // import Login from "../jsx/pages/authentication/Test";
@@ -37,10 +37,11 @@ export default function Router() {
 
   return (
     <AuthProvider authType={"localstorage"} authName={"auth"}>
-      <BrowserRouter>
+      <BrowserRouter basename="/admin">
         <UseApplyBodyStyles />
         <Routes>
           <Route index path="/" element={<Login />} />{" "}
+          <Route index path="/admin" element={<Login />} />{" "}
           <Route path="/auth/login" element={<Login />} />{" "}
           <Route path="/auth/signup" element={<SignUp />} />
 

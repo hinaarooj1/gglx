@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 
 import { toast } from "react-toastify";
-import LogoNew from "../../../assets/images/img/Logo - Copy.png";
+import LogoNew from "../../../assets/images/logo.webp";
 import { loginApi } from "../../../Api/Service";
 import { useSignIn, useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useAuth } from "../../../store/auth";
@@ -153,7 +153,7 @@ function Login(props) {
 				<div className="login-aside text-center  d-flex flex-column flex-row-auto">
 					<div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 						<Link to='/' className="text-center mb-lg-4 mb-2 pt-5 logo">
-							<img src={LogoNew} alt="" />
+							<img className="logoaimg" src={LogoNew} alt="" />
 						</Link>
 
 						<h3 className="mb-2 text-white">Welcome back!</h3>

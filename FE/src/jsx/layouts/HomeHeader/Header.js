@@ -1,4 +1,4 @@
-import logo_300x57_1 from "../../assets/img/logo-300x57-1.png";
+import logo_300x57_1 from "../../assets/images/logo.webp";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
@@ -23,7 +23,7 @@ const Header = () => {
             aria-label="homepage"
             className="Link__CustomLink-sc-1p80yfz-0 hDjhKH"
           >
-            <img src={logo_300x57_1} alt="" />
+            <img className="logoaimg" src={logo_300x57_1} alt="" />
             {/* <svg
               width={224}
               height={24}

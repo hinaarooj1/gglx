@@ -1,8 +1,8 @@
 {
-  "name": "blockguard",
+  "name": "gamegalaxy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./admin",
+  "homepage": "/admin",
   "dependencies": {
     "15": "^0.0.0",
     "@ckeditor/ckeditor5-build-classic": "^40.2.0",

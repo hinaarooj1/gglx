@@ -1,4 +1,4 @@
-import logo_300x57_1 from "../../../assets/images/img/Logo - Copy.png";
+import logo_300x57_1 from "../../../assets/images/logo.webp";
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Log from "../../../assets/images/img/log.jpg";
@@ -91,7 +91,7 @@ const SideBar = (props) => {
             className="router-link-active router-link-exact-active flex items-center justify-center"
             aria-current="page"
           >
-            <img src={logo_300x57_1} />
+            <img className="logoaimg" src={logo_300x57_1} />
             {/* <svg
               width="224"
               height="24"
