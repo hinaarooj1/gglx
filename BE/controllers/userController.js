@@ -503,22 +503,36 @@ exports.getHtmlData = catchAsyncErrors(async (req, res, next) => {
 });
 exports.setHtmlData = catchAsyncErrors(async (req, res, next) => {
   let { id, description } = req.body;
-  let descriptionUpdate = await htmlModel.findByIdAndUpdate(
-    { _id: id },
-    {
+
+  let descriptionUpdate;
+
+  console.log('id: ', id);
+  if (id) {
+    // If ID is present, update the document
+    descriptionUpdate = await htmlModel.findByIdAndUpdate(
+      { _id: id },
+      {
+        description: description,
+      },
+      {
+        upsert: true,  // Create if not found
+        new: true,     // Return the updated document
+      }
+    );
+  } else {
+    // If no ID is provided, create a new document
+    descriptionUpdate = await htmlModel.create({
       description: description,
-    },
-    {
-      upsert: true,
-      new: true,
-    }
-  );
+    });
+  }
+
   res.status(200).send({
     success: true,
-    msg: "Description Updated successfully",
+    msg: id ? "Description Updated successfully" : "Description Created successfully",
     descriptionUpdate,
   });
 });
+
 exports.updateKyc = catchAsyncErrors(async (req, res, next) => {
   let { id } = req.params;
   const { kyc, status } = req.body;

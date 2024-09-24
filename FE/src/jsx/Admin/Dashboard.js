@@ -101,6 +101,7 @@ const Dashboard = () => {
   const setHtmlData = async () => {
     try {
       setisDisable(true);
+      console.log(Description);
       let editDesc = newDescription;
       if (
         editDesc === "<p><br></p>" ||
@@ -116,7 +117,9 @@ const Dashboard = () => {
         editDesc = newDescription;
       }
       let data = { id: Description._id, description: editDesc };
+      console.log('newDescription: ', newDescription);
       const descriptionUpdate = await setHtmlDataApi(data);
+      console.log('descriptionUpdate: ', descriptionUpdate);
       getHtmlData();
 
       if (descriptionUpdate.success) {
@@ -486,7 +489,6 @@ const Dashboard = () => {
               />
               <div className="text-center mt-2">
                 <button
-                  disabled={isDisable}
                   onClick={setHtmlData}
                   data-v-71bb21a6
                   className="is-button rounded bg-primary-500 dark:bg-primary-500 hover:enabled:bg-primary-400 dark:hover:enabled:bg-primary-400 text-white hover:enabled:shadow-lg hover:enabled:shadow-primary-500/50 dark:hover:enabled:shadow-primary-800/20 focus-visible:outline-primary-400/70 focus-within:outline-primary-400/70 focus-visible:bg-primary-500 active:enabled:bg-primary-500 dark:focus-visible:outline-primary-400 dark:focus-within:outline-primary-400 dark:focus-visible:bg-primary-500 dark:active:enabled:bg-primary-500 w-24"
@@ -512,10 +514,9 @@ const Dashboard = () => {
                 newDescription === "<h6><br></h6>" ? (
                 ""
               ) : (
-                <div className="dark">
+                <div className="dark jass">
                   <h3 className="mb-2 font-bold inveret">
-                    This will the output for all users on their dashboard
-                    footer:
+                    This will the output for all users on their tokens page:
                   </h3>
                   <div
                     className="htmData"

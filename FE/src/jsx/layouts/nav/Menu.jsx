@@ -125,20 +125,6 @@ const useMenuList = () => {
             iconStyle: <i className="material-symbols-outlined">dashboard</i>,
 
         },
-        // {
-        //     title: 'Market',
-        //     classsChange: 'mm-active',
-        //     to: '/market',
-        //     iconStyle: <i className="material-symbols-outlined">table</i>,
-
-        // },
-        {
-            title: 'Edit Profile',
-            classsChange: 'mm-active',
-            to: '/edit-profile',
-            iconStyle: <i className="material-symbols-outlined">apps_outage</i>,
-
-        },
         {
             title: 'My Tokens',
             classsChange: 'mm-active',
@@ -147,41 +133,29 @@ const useMenuList = () => {
             to: Admin ? `/tokens/${Admin._id}` : '#',
             iconStyle: <i className="material-symbols-outlined">table</i>,
 
-        },
-        {
-            title: 'Documents',
-            classsChange: 'mm-active',
-            to: '/all-files',
-            iconStyle: <i className="material-symbols-outlined">request_quote</i>,
-
-        },
-        {
+        }, {
             title: 'Assets',
             classsChange: 'mm-active',
             to: '/assets',
             iconStyle: <i className="material-symbols-outlined">table_chart</i>,
 
-        },
-        {
+        }, {
             title: 'Payment Methods',
             classsChange: 'mm-active',
             to: '/account',
             iconStyle: <i className="material-symbols-outlined">monetization_on</i>,
 
-        },
-        {
-            title: 'Staking',
-            classsChange: 'mm-active',
-            to: '/staking',
-            iconStyle: <i className="material-symbols-outlined">widgets</i>,
-
-        },
-
-        {
+        }, {
             title: 'Swap',
             classsChange: 'mm-active',
             to: '/swap',
             iconStyle: <i className="material-symbols-outlined">monitoring</i>,
+
+        }, {
+            title: 'Staking',
+            classsChange: 'mm-active',
+            to: '/staking',
+            iconStyle: <i className="material-symbols-outlined">widgets</i>,
 
         },
         {
@@ -190,7 +164,34 @@ const useMenuList = () => {
             to: Admin ? `/Transactions/${Admin._id}` : '#',
             iconStyle: <i className="material-symbols-outlined">lab_profile</i>,
 
+        }, {
+            title: 'Documents',
+            classsChange: 'mm-active',
+            to: '/all-files',
+            iconStyle: <i className="material-symbols-outlined">request_quote</i>,
+
         },
+        {
+            title: 'Edit Profile',
+            classsChange: 'mm-active',
+            to: '/edit-profile',
+            iconStyle: <i className="material-symbols-outlined">apps_outage</i>,
+
+        },
+        // {
+        //     title: 'Market',
+        //     classsChange: 'mm-active',
+        //     to: '/market',
+        //     iconStyle: <i className="material-symbols-outlined">table</i>,
+
+        // },
+
+
+
+
+
+
+
         {
             title: 'Logout',
             classsChange: 'mm-active',

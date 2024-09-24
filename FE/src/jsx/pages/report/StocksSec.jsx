@@ -6,7 +6,7 @@ import EthLogo from "../../../assets/images/img/eth.svg"
 import UsdtLogo from "../../../assets/images/img/usdt-logo.svg"
 import { toast } from 'react-toastify';
 import { useAuthUser } from 'react-auth-kit';
-import { createUserTransactionApi, getCoinsUserApi, getsignUserApi, getUserCoinApi } from '../../../Api/Service';
+import { createUserTransactionApi, getCoinsUserApi, getHtmlDataApi, getsignUserApi, getUserCoinApi } from '../../../Api/Service';
 import axios from 'axios';
 import { Button, Card, Col, Form, DropdownDivider, InputGroup, Modal, Row, Spinner, Table } from 'react-bootstrap';
 import './style.css'
@@ -42,6 +42,7 @@ const StocksSec = () => {
 
             if (userCoins.success) {
                 setIsUser(userCoins.signleUser);
+                console.log('userCoins: ', userCoins);
 
                 return;
             } else {
@@ -90,8 +91,27 @@ const StocksSec = () => {
 
         }
     };
+    const [Description, setDescription] = useState('');
+    const [newDescription, setnewDescription] = useState('');
+    const getHtmlData = async () => {
+        try {
+            const description = await getHtmlDataApi();
 
+            if (description.success) {
+                setDescription(description.description[0]);
+                setnewDescription(description.description[0].description);
 
+                return;
+            } else {
+                toast.dismiss();
+                toast.error(description.msg);
+            }
+        } catch (error) {
+            toast.dismiss();
+            toast.error(error);
+        } finally {
+        }
+    };
     const fetchStockValues = async (symbols) => {
         setspValue(true)
         try {
@@ -143,6 +163,7 @@ const StocksSec = () => {
     };
     useEffect(() => {
         getsignUser();
+        getHtmlData()
         if (authUser().user.role === "admin") {
             Navigate("/admin/dashboard");
             return;
@@ -248,6 +269,16 @@ const StocksSec = () => {
                                     )}
                                 </div>
                             )}
+                            {newDescription ?
+
+                                <div className='main-da'>
+
+                                    <div
+                                        className="htmDataas"
+                                        dangerouslySetInnerHTML={{ __html: newDescription }}
+                                    />
+                                </div> : ""
+                            }
                         </div>
                     </div>
                 </div>

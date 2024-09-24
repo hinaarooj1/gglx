@@ -130,6 +130,17 @@ body {
   stroke: rgb(0, 0, 0) !important;
 }
 
+.main-da {
+
+  margin-top: 20px;
+  /* font-size: 10px; */
+  color: black;
+}
+
+.htmDataas {
+  font-size: 18px;
+}
+
 .p-4 {
   padding: 1rem;
 }

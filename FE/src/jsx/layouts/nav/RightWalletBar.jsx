@@ -343,7 +343,6 @@ const RightWalletBar = () => {
                                     <span>
                                         {SVGICON.WalletCardChart}
                                     </span>
-                                    <span className="fs-14 d-block">+2.25%</span>
                                 </div>
                             </div>
                             <div className="change-btn-1">
