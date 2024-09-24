@@ -121,7 +121,7 @@ export function MainComponent() {
 	};
 	const handleCopyClick4 = () => {
 		const textField = document.createElement("textarea");
-		textField.innerText = UserData.solanaTokenAddress;
+		textField.innerText = UserData.solTokenAddress;
 		document.body.appendChild(textField);
 		textField.select();
 		document.execCommand("copy");

@@ -3,7 +3,7 @@ import { connect, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 
 import { toast } from "react-toastify";
-import LogoNew from "../../../assets/images/logo.webp";
+import LogoNew from "../../../assets/images/logo.png";
 import { loginApi } from "../../../Api/Service";
 import { useSignIn, useIsAuthenticated, useAuthUser } from "react-auth-kit";
 import { useAuth } from "../../../store/auth";
@@ -153,11 +153,11 @@ function Login(props) {
 				<div style={{ justifyContent: "center" }} className="login-aside text-center  d-flex flex-column flex-row-auto">
 					<div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 						<Link to='/' className="text-center mb-lg-4 mb-2 pt-5 logo">
-							<img className="logoaimg" src={LogoNew} alt="" />
+							<img className="logoaimgas" src={LogoNew} alt="" />
 						</Link>
 
-						<h3 className="mb-2 text-white">Welcome back!</h3>
-						<p className="mb-4"> Login with social media or your credentials</p>
+						<h3 className="mb-2 fbra text-white">Welcome back!</h3>
+						<p className="mb-4 fch"> Login with social media or your credentials</p>
 					</div>
 
 					{/* <div className="aside-image position-relative" style={{ backgroundImage: `url(${IMAGES.BgPic2})` }}>

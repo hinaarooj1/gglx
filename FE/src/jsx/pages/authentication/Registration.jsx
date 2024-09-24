@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
-import LogoNew from "../../../assets/images/logo.webp";
+import LogoNew from "../../../assets/images/logo.png";
 
 function Register(props) {
   const [isloading, setisloading] = useState(false);

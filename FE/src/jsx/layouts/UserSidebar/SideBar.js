@@ -1,4 +1,4 @@
-import logo_300x57_1 from "../../assets/images/logo.webp";
+import logo_300x57_1 from "../../assets/images/logo.png";
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import { useAuthUser, useSignOut } from "react-auth-kit";

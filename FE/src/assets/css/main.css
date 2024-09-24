@@ -15,7 +15,11 @@
 }
 
 .logoaimg {
-    width: 81px !important;
+    /* width: 1002px !important; */
+}
+
+.logoaimga {
+    width: 100px !important;
 }
 
 .logo-to-show2,
@@ -41,9 +45,33 @@
     display: none
 }
 
+.logoaimgas {
+    width: 200px !important;
+}
+
+.fch {
+    font-size: 19px !important;
+}
+
+.fbra {
+    font-size: 30px !important;
+}
+
 @media (max-width: 767px) {
     .for-dk {
         display: none !important;
+    }
+
+    .fch {
+        font-size: 18px !important;
+    }
+
+    .fbra {
+        font-size: 23px !important;
+    }
+
+    .logoaimgas {
+        width: 140px !important;
     }
 
     .for-ml {
