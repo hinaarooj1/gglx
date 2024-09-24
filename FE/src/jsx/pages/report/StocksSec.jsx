@@ -90,13 +90,7 @@ const StocksSec = () => {
 
         }
     };
-    useEffect(() => {
-        // Fetch live stock values when UserTransactions is updated
-        if (Array.isArray(UserTransactions) && UserTransactions.length > 0) {
-            const symbols = UserTransactions.map(tx => tx.stockSymbol);
-            fetchStockValues(symbols);
-        }
-    }, [UserTransactions]);
+
 
     const fetchStockValues = async (symbols) => {
         setspValue(true)
@@ -193,79 +187,66 @@ const StocksSec = () => {
                 <div className="col-xxl-12">
                     <div className="card">
                         <Card.Header>
-                            <Card.Title>Stocks</Card.Title>
+                            <Card.Title>Token</Card.Title>
                         </Card.Header>
                         <div className="card-body">
                             {isLoading ? (
                                 <div className="text-center my-5">
                                     <Spinner animation="border" variant="primary" />
-                                    <h4 className="mt-3"> Loading Stocks...</h4>
-                                    <p>Please wait while we load the  Stocks.</p>
+                                    <h4 className="mt-3"> Loading Token...</h4>
+                                    <p>Please wait while we load the  Token.</p>
                                 </div>
                             ) : (
 
-                                    <div className="border-muted-200 dark:border-muted-700 dark:bg-muted-800 relative w-full border bg-white duration-300 rounded-md">
-                                        <div className="flex items-center justify-between p-4">
-                                            <div>
-                                                <p
-                                                    className="font-heading text-sm font-medium leading-normal leading-normal uppercase tracking-wider"
-                                                    tag="h2"
-                                                >
-                                                    {" "}
-                                                    All Stocks
-                                                </p>
-                                            </div>
+                                <div className="border-muted-200 dark:border-muted-700 dark:bg-muted-800 relative w-full border bg-white duration-300 rounded-md">
+                                    <div className="flex items-center justify-between p-4">
+                                        <div>
+                                            <p
+                                                className="font-heading text-sm font-medium leading-normal leading-normal uppercase tracking-wider"
+                                                tag="h2"
+                                            >
+                                                {" "}
+                                                All Tokens
+                                            </p>
                                         </div>
-                                        {isLoading && (
-                                            <div className="  p-5">Loading Stocks...</div>
-                                        )}
-                                        {!isLoading && (
-                                            <div className="pt-6 asm">
-                                                        <Table striped bordered hover>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Stock Name</th>
-                                                                    <th>Stock Symbol</th>
-                                                                    <th>Quantity</th>
-                                                                    <th>Total Value</th>
-                                                                </tr>
-                                                            </thead>
+                                    </div>
+                                    {isLoading && (
+                                        <div className="  p-5">Loading Tokens...</div>
+                                    )}
+                                    {!isLoading && (
+                                        <div className="pt-6 asm">
+                                            <Table striped bordered hover>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Token Name</th>
+                                                        <th>Token Symbol</th>
+                                                        <th>Price</th>
+                                                        <th>Total Value</th>
+                                                    </tr>
+                                                </thead>
                                                 {UserTransactions && Array.isArray(UserTransactions) && UserTransactions.length > 0 ? (
                                                     UserTransactions.map((transaction, index) => (
-                                                            <tbody>
-                                                                <tr key={index}>
-                                                                    <td>{transaction.stockName || 'N/A'}</td>
-                                                                    <td className="text-center">{transaction.stockSymbol || 'N/A'}</td>
-                                                                    <td>{transaction.stockAmount || 'N/A'}</td>
+                                                        <tbody>
+                                                            <tr key={index}>
+                                                                <td>{transaction.stockName || 'N/A'}</td>
+                                                                <td className="text-center">{transaction.stockSymbol || 'N/A'}</td>
+                                                                <td>{transaction.stockAmount || 'N/A'}</td>
                                                                 <td>
-                                                                    {spValue ? (
-                                                                        <div className="loader-container">
-                                                                            <Spinner animation="border" role="status">
-                                                                                <span className="visually-hidden">Loading...</span>
-                                                                            </Spinner>
-                                                                        </div>
-                                                                    ) : (() => {
-                                                                        const liveValue = liveStockValues[transaction.stockSymbol];
-                                                                        const calculatedValue = parseFloat(liveValue) * parseFloat(transaction.stockAmount);
-                                                                        const formattedValue = isNaN(calculatedValue)
-                                                                            ? parseFloat(transaction.stockValue) * parseFloat(transaction.stockAmount)
-                                                                            : calculatedValue;
-                                                                        return `$${formattedValue.toFixed(3) || 'N/A'}`;
-                                                                    })() }
-                                                                        
+                                                                    ${transaction.stockValue.toFixed(3)}
+
                                                                 </td>
-                                                                </tr>
-                                                            </tbody>
+                                                            </tr>
+                                                        </tbody>
                                                     ))
                                                 ) : (
-                                                        <tr>
-                                                            <td colSpan="4" className="text-center">No stocks available</td>
-                                                        </tr>
+                                                    <tr>
+                                                        <td colSpan="4" className="text-center">No Token available</td>
+                                                    </tr>
                                                 )}
-                                                </Table>
-                                            </div>
-                                        )}
-                                    </div>
+                                            </Table>
+                                        </div>
+                                    )}
+                                </div>
                             )}
                         </div>
                     </div>

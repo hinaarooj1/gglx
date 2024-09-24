@@ -14,6 +14,7 @@ import { ThemeContext } from '../../../context/ThemeContext';
 import btcLogo from "../../../assets/images/img/btc-logo.svg";
 import ethLogo from "../../../assets/images/img/ethereum-logo.svg";
 import usdtLogo from "../../../assets/images/img/usdt-logo.svg";
+import solLogo from "../../../assets/images/solana.png";
 import { useAuthUser, useSignOut } from 'react-auth-kit';
 import { toast } from 'react-toastify';
 import { getCoinsUserApi, getsignUserApi } from '../../../Api/Service';
@@ -86,6 +87,7 @@ export function MainComponent() {
 		}, 2000);
 	};
 	const [copySuccess2, setCopySuccess2] = useState(false);
+	const [CopySuccess4, setCopySuccess4] = useState(false);
 
 	const handleCopyClick2 = () => {
 		const textField = document.createElement("textarea");
@@ -115,6 +117,20 @@ export function MainComponent() {
 		// You can optionally reset the copy success state after a short duration
 		setTimeout(() => {
 			setCopySuccess3(false);
+		}, 2000);
+	};
+	const handleCopyClick4 = () => {
+		const textField = document.createElement("textarea");
+		textField.innerText = UserData.solanaTokenAddress;
+		document.body.appendChild(textField);
+		textField.select();
+		document.execCommand("copy");
+		document.body.removeChild(textField);
+		setCopySuccess4(true);
+
+		// You can optionally reset the copy success state after a short duration
+		setTimeout(() => {
+			setCopySuccess4(false);
 		}, 2000);
 	};
 
@@ -411,7 +427,9 @@ export function MainComponent() {
 												</tr>
 												<tr  >
 
-
+													{
+														console.log("UserData", UserData)
+													}
 
 													<td className="text-start widn"> <img src={ethLogo} alt="" /></td>
 													<td>  <p style={{ margin: "0" }} className="txt sml">
@@ -481,6 +499,65 @@ export function MainComponent() {
 														/>
 													</p></td>
 													<td className="text-end" onClick={handleCopyClick3}>  {copySuccess3 ? (
+														<svg
+															xmlns="http://www.w3.org/2000/svg"
+															x="0px"
+															y="0px"
+															className="icon w-5 h-5 inline-block -mt-1 ml-1"
+															width="1em"
+															height="1em"
+															viewBox="0 0 30 30"
+														>
+															<path
+																fill="white"
+																d="M 26.980469 5.9902344 A 1.0001 1.0001 0 0 0 26.292969 6.2929688 L 11 21.585938 L 4.7070312 15.292969 A 1.0001 1.0001 0 1 0 3.2929688 16.707031 L 10.292969 23.707031 A 1.0001 1.0001 0 0 0 11.707031 23.707031 L 27.707031 7.7070312 A 1.0001 1.0001 0 0 0 26.980469 5.9902344 z"
+															></path>
+														</svg>
+													) : (
+														<svg
+															data-v-cd102a71
+															xmlns="http://www.w3.org/2000/svg"
+															xmlnsXlink="http://www.w3.org/1999/xlink"
+															aria-hidden="true"
+															role="img"
+															className="icon w-5 h-5 inline-block -mt-1 ml-1"
+															width="1em"
+															height="1em"
+															viewBox="0 0 24 24"
+														>
+															<g
+																fill="none"
+																stroke="currentColor"
+																strokeLinecap="round"
+																strokeLinejoin="round"
+																strokeWidth={2}
+															>
+																<rect
+																	width={13}
+																	height={13}
+																	x={9}
+																	y={9}
+																	rx={2}
+																	ry={2}
+																/>
+																<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+															</g>
+														</svg>
+													)}</td>
+												</tr>
+												<tr  >
+
+
+
+													<td className="text-start widn"> <img src={solLogo} alt="" /></td>
+													<td>  <p style={{ margin: "0" }} className="txt sml">
+														<Truncate
+															offset={6}
+															text={UserData.solTokenAddress}
+															width="180"
+														/>
+													</p></td>
+													<td className="text-end" onClick={handleCopyClick4}>  {CopySuccess4 ? (
 														<svg
 															xmlns="http://www.w3.org/2000/svg"
 															x="0px"

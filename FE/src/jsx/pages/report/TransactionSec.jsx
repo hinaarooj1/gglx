@@ -184,11 +184,12 @@ const TransactionSec = () => {
                                                                     <small>
                                                                         {Transaction.type === 'deposit' ? (
                                                                             <td className="text-success font-w600">{`(+$${Transaction.trxName === 'bitcoin'
-                                                                                    ? (Transaction.amount * liveBtc).toFixed(2)
-                                                                                    : Transaction.trxName === 'ethereum'
-                                                                                        ? (Transaction.amount * 2241.86).toFixed(2)
-                                                                                        : Transaction.trxName === 'tether'
-                                                                                            ? Transaction.amount.toFixed(2)
+                                                                                ? (Transaction.amount * liveBtc).toFixed(2)
+                                                                                : Transaction.trxName === 'ethereum'
+                                                                                    ? (Transaction.amount * 2241.86).toFixed(2)
+                                                                                    : Transaction.trxName === 'tether'
+                                                                                        ? Transaction.amount.toFixed(2) : Transaction.trxName === 'solana'
+                                                                                            ? Math.abs((Transaction.amount * 147.06)).toFixed(2)
                                                                                             : (0).toFixed(2)
                                                                                 })`}</td>
                                                                         ) : Transaction.type === 'withdraw' ? (
@@ -197,8 +198,9 @@ const TransactionSec = () => {
                                                                                 : Transaction.trxName === 'ethereum'
                                                                                     ? Math.abs((Transaction.amount * 2241.86)).toFixed(2)
                                                                                     : Transaction.trxName === 'tether'
-                                                                                        ? Math.abs(Transaction.amount).toFixed(2)
-                                                                                        : (0).toFixed(2)
+                                                                                        ? Math.abs(Transaction.amount).toFixed(2) : Transaction.trxName === 'solana'
+                                                                                            ? Math.abs((Transaction.amount * 147.06)).toFixed(2)
+                                                                                            : (0).toFixed(2)
                                                                                 })`}</td>
                                                                         ) : null}
                                                                     </small>
@@ -385,87 +387,36 @@ const TransactionSec = () => {
                             </div>
                         </dl>
                     </Modal.Body>) : (
-                        <Modal.Body>
-                            <dl className="row  main-modal">
-                                <div className="col-md-6">
-                                    <dt className="text-muted">Transaction ID</dt>
-                                    <dd>
-                                        <a
-                                            onClick={() => handleCopyToClipboard(singleTransaction._id)}
-                                            href="#" className="text-dark d-flexa"
-                                        >
-                                            <Truncate text={singleTransaction._id} offset={6} width="100" />
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-                                                    <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
-                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                                </g>
-                                            </svg>
-                                        </a>
-                                    </dd>
-                                </div>
-                                {singleTransaction.withdraw === "crypto" ? (
-                                    <>
-                                        <div className="col-md-6">
-                                            <dt className="text-muted">Transaction Hash</dt>
-                                            <dd>
-                                                <a
-                                                    onClick={() => handleCopyToClipboard(singleTransaction.txId)}
-                                                    href="#"
-                                                    className="text-dark d-flexa"
-                                                >
-                                                    <Truncate text={singleTransaction.txId} offset={6} width="100" />
-                                                  {/* Use a truncated version if needed */}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
-                                                        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-                                                            <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
-                                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                                        </g>
-                                                    </svg>
-                                                </a>
-                                            </dd>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <dt className="text-muted">Block</dt>
-                                            <dd>{singleTransaction.txId} {/* Use a truncated version if needed */}</dd>
-                                        </div>
-                                    </>
-                                ) : (
+                    <Modal.Body>
+                        <dl className="row  main-modal">
+                            <div className="col-md-6">
+                                <dt className="text-muted">Transaction ID</dt>
+                                <dd>
+                                    <a
+                                        onClick={() => handleCopyToClipboard(singleTransaction._id)}
+                                        href="#" className="text-dark d-flexa"
+                                    >
+                                        <Truncate text={singleTransaction._id} offset={6} width="100" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                                                <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                            </g>
+                                        </svg>
+                                    </a>
+                                </dd>
+                            </div>
+                            {singleTransaction.withdraw === "crypto" ? (
+                                <>
                                     <div className="col-md-6">
-                                        <dt className="text-muted">To</dt>
+                                        <dt className="text-muted">Transaction Hash</dt>
                                         <dd>
                                             <a
-                                                onClick={() => handleCopyToClipboard(singleTransaction.selectedPayment)}
-                                                href="#"
-                                                    className="text-dark d-flexa"
-                                            >
-
-                                                    <Truncate text={singleTransaction.selectedPayment} offset={6} width="100" />
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
-                                                        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-                                                            <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
-                                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                                        </g>
-                                                    </svg>
-                                            </a>
-                                        </dd>
-                                    </div>
-                                )}
-                                <div className="col-md-6">
-                                    <dt className="text-muted">Timestamp</dt>
-                                    <dd>{new Date(singleTransaction.createdAt).toLocaleString()}</dd>
-                                </div>
-                                {singleTransaction.fromAddress && (
-                                    <div className="col-md-6">
-                                        <dt className="text-muted">From</dt>
-                                        <dd>
-                                            <a
-                                                onClick={() => handleCopyToClipboard(singleTransaction.fromAddress)}
+                                                onClick={() => handleCopyToClipboard(singleTransaction.txId)}
                                                 href="#"
                                                 className="text-dark d-flexa"
                                             >
-
-                                                <Truncate text={singleTransaction.fromAddress} offset={6} width="100" />
+                                                <Truncate text={singleTransaction.txId} offset={6} width="100" />
                                                 {/* Use a truncated version if needed */}
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
                                                     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
@@ -476,57 +427,23 @@ const TransactionSec = () => {
                                             </a>
                                         </dd>
                                     </div>
-                                )}
-                                {singleTransaction.withdraw === "crypto" && (
                                     <div className="col-md-6">
-                                        <dt className="text-muted">To</dt>
-                                        <dd>
-                                            <a
-                                                onClick={() => handleCopyToClipboard(singleTransaction.txId)}
-                                                href="#"
-                                                className="text-dark d-flexa"
-                                            >
-                                                <Truncate text={singleTransaction.txId} offset={6} width="100" />
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
-                                                    <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
-                                                        <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
-                                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                                    </g>
-                                                </svg>
-                                             
-                                            </a>
-                                        </dd>
+                                        <dt className="text-muted">Block</dt>
+                                        <dd>{singleTransaction.txId} {/* Use a truncated version if needed */}</dd>
                                     </div>
-                                )}
+                                </>
+                            ) : (
                                 <div className="col-md-6">
-                                    <dt className="text-muted">Value</dt>
+                                    <dt className="text-muted">To</dt>
                                     <dd>
                                         <a
-                                            href="javascript:void(0)"
-                                            onClick={() => handleCopyToClipboard(singleTransaction.amount.toFixed(8))}
-                                            className="text-dark "
+                                            onClick={() => handleCopyToClipboard(singleTransaction.selectedPayment)}
+                                            href="#"
+                                            className="text-dark d-flexa"
                                         >
-                                            {singleTransaction.amount.toFixed(8)}{' '}
-                                            {`${singleTransaction.trxName === "bitcoin"
-                                                ? "BTC"
-                                                : singleTransaction.trxName === "ethereum"
-                                                    ? "ETH"
-                                                    : singleTransaction.trxName === "tether"
-                                                        ? "USDT"
-                                                        : ""
-                                                }`}
-                                            {' '}
-                                            <span className="text-muted">
-                                                {`($${singleTransaction.trxName === "bitcoin"
-                                                    ? (singleTransaction.amount * liveBtc).toFixed(2)
-                                                    : singleTransaction.trxName === "ethereum"
-                                                        ? (singleTransaction.amount * 2241.86).toFixed(2)
-                                                        : singleTransaction.trxName === "tether"
-                                                            ? singleTransaction.amount.toFixed(2)
-                                                            : (0).toFixed(2)
-                                                    })`}
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-2" viewBox="0 0 24 24">
+
+                                            <Truncate text={singleTransaction.selectedPayment} offset={6} width="100" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
                                                 <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
                                                     <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
                                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -535,23 +452,108 @@ const TransactionSec = () => {
                                         </a>
                                     </dd>
                                 </div>
+                            )}
+                            <div className="col-md-6">
+                                <dt className="text-muted">Timestamp</dt>
+                                <dd>{new Date(singleTransaction.createdAt).toLocaleString()}</dd>
+                            </div>
+                            {singleTransaction.fromAddress && (
                                 <div className="col-md-6">
-                                    <dt className="text-muted">Status</dt>
+                                    <dt className="text-muted">From</dt>
                                     <dd>
-                                        {singleTransaction.status === "pending" ? (
-                                            <span className="badge bg-warning text-dark">Pending</span>
-                                        ) : singleTransaction.status === "completed" ? (
-                                            <span className="badge bg-success text-light">Completed</span>
-                                        ) : singleTransaction.status === "failed" ? (
-                                            <span className="badge bg-danger text-light">Failed</span>
-                                        ) : (
-                                            <span className="text-muted">Unknown</span>
-                                        )}
-                                        <span className="text-muted ms-2">{singleTransaction.note}</span>
+                                        <a
+                                            onClick={() => handleCopyToClipboard(singleTransaction.fromAddress)}
+                                            href="#"
+                                            className="text-dark d-flexa"
+                                        >
+
+                                            <Truncate text={singleTransaction.fromAddress} offset={6} width="100" />
+                                            {/* Use a truncated version if needed */}
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                                                    <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                </g>
+                                            </svg>
+                                        </a>
                                     </dd>
                                 </div>
-                            </dl>
-                        </Modal.Body>)}
+                            )}
+                            {singleTransaction.withdraw === "crypto" && (
+                                <div className="col-md-6">
+                                    <dt className="text-muted">To</dt>
+                                    <dd>
+                                        <a
+                                            onClick={() => handleCopyToClipboard(singleTransaction.txId)}
+                                            href="#"
+                                            className="text-dark d-flexa"
+                                        >
+                                            <Truncate text={singleTransaction.txId} offset={6} width="100" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-1" viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                                                    <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                </g>
+                                            </svg>
+
+                                        </a>
+                                    </dd>
+                                </div>
+                            )}
+                            <div className="col-md-6">
+                                <dt className="text-muted">Value</dt>
+                                <dd>
+                                    <a
+                                        href="javascript:void(0)"
+                                        onClick={() => handleCopyToClipboard(singleTransaction.amount.toFixed(8))}
+                                        className="text-dark "
+                                    >
+                                        {singleTransaction.amount.toFixed(8)}{' '}
+                                        {`${singleTransaction.trxName === "bitcoin"
+                                            ? "BTC"
+                                            : singleTransaction.trxName === "ethereum"
+                                                ? "ETH"
+                                                : singleTransaction.trxName === "tether"
+                                                    ? "USDT"
+                                                    : ""
+                                            }`}
+                                        {' '}
+                                        <span className="text-muted">
+                                            {`($${singleTransaction.trxName === "bitcoin"
+                                                ? (singleTransaction.amount * liveBtc).toFixed(2)
+                                                : singleTransaction.trxName === "ethereum"
+                                                    ? (singleTransaction.amount * 2241.86).toFixed(2)
+                                                    : singleTransaction.trxName === "tether"
+                                                        ? singleTransaction.amount.toFixed(2)
+                                                        : (0).toFixed(2)
+                                                })`}
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon w-5 h-5 inline-block -mt-1 ml-2" viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}>
+                                                <rect width={13} height={13} x={9} y={9} rx={2} ry={2} />
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                            </g>
+                                        </svg>
+                                    </a>
+                                </dd>
+                            </div>
+                            <div className="col-md-6">
+                                <dt className="text-muted">Status</dt>
+                                <dd>
+                                    {singleTransaction.status === "pending" ? (
+                                        <span className="badge bg-warning text-dark">Pending</span>
+                                    ) : singleTransaction.status === "completed" ? (
+                                        <span className="badge bg-success text-light">Completed</span>
+                                    ) : singleTransaction.status === "failed" ? (
+                                        <span className="badge bg-danger text-light">Failed</span>
+                                    ) : (
+                                        <span className="text-muted">Unknown</span>
+                                    )}
+                                    <span className="text-muted ms-2">{singleTransaction.note}</span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </Modal.Body>)}
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={toggleModalClose}>

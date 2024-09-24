@@ -5,6 +5,7 @@ import Select from 'react-select';
 import btcLogo from "../../../assets/images/img/btc-logo.svg";
 import ethLogo from "../../../assets/images/img/ethereum-logo.svg";
 import usdtLogo from "../../../assets/images/img/usdt-logo.svg";
+import solanaLogo from "../../../assets/images/solana.png";
 import redArrow from "../../../assets/images/img/re-arriw.svg";
 import DropdownBlog from '../../elements/DropdownBlog';
 import { SVGICON } from '../../constant/theme';
@@ -158,13 +159,28 @@ const RightWalletBar = () => {
                 }
                 setusdtBalance(usdtValueAdded);
                 // tx
+                // tx
+                const sol = userCoins.getCoin.transactions.filter((transaction) =>
+                    transaction.trxName.includes("solana")
+                );
+                const solanacomplete = sol.filter((transaction) =>
+                    transaction.status.includes("completed")
+                );
+                let solanaCount = 0;
+                let solValueAdded = 0;
+                for (let i = 0; i < solanacomplete.length; i++) {
+                    const element = solanacomplete[i];
+                    solanaCount = element.amount;
+                    solValueAdded += solanaCount;
+                }
+                // tx
                 let val = response.data.bpi.USD.rate.replace(/,/g, "");
                 setliveBtc(val);
                 let lakh = btcValueAdded * val;
                 const totalValue = (
                     lakh +
                     ethValueAdded * 2241.86 +
-                    usdtValueAdded
+                    usdtValueAdded + solValueAdded * 147.06
                 ).toFixed(2);
 
                 const [integerPart, fractionalPart] = totalValue.split(".");
@@ -331,7 +347,7 @@ const RightWalletBar = () => {
                                 </div>
                             </div>
                             <div className="change-btn-1">
-                               
+
                                 <Link to={"/assets"} className="btn btn-sm"
                                     onClick={() => setPaymentModal(true)}
                                 >
@@ -379,6 +395,8 @@ const RightWalletBar = () => {
                                                                         <img src={ethLogo} alt="" />
                                                                     ) : Transaction.trxName === "tether" ? (
                                                                         <img src={usdtLogo} alt="" />
+                                                                    ) : Transaction.trxName === "solana" ? (
+                                                                        <img src={solanaLogo} alt="" />
                                                                     ) : (
                                                                         ""
                                                                     )}</td>
@@ -404,17 +422,22 @@ const RightWalletBar = () => {
                                                                                         minimumFractionDigits: 2,
                                                                                         maximumFractionDigits: 2,
                                                                                     }
-                                                                                )
-                                                                                : (0).toLocaleString(undefined, {
-                                                                                    minimumFractionDigits: 2,
-                                                                                    maximumFractionDigits: 2,
-                                                                                })
+                                                                                ) : Transaction.trxName === "solana"
+                                                                                    ? (
+                                                                                        Transaction.amount * 147.06).toLocaleString(undefined, {
+                                                                                            minimumFractionDigits: 2,
+                                                                                            maximumFractionDigits: 2,
+                                                                                        })
+                                                                                    : (0).toLocaleString(undefined, {
+                                                                                        minimumFractionDigits: 2,
+                                                                                        maximumFractionDigits: 2,
+                                                                                    })
                                                                         }`}</td>
                                                                 </tr>
                                                             ))
                                                         }
                                                     </>
-                                                ) : <h5 className='text-center d-flex items-center' style={{textAlign:"center"}}>No Transaction Found</h5>}
+                                                ) : <h5 className='text-center d-flex items-center' style={{ textAlign: "center" }}>No Transaction Found</h5>}
 
 
                                             </tbody>
@@ -441,14 +464,14 @@ const RightWalletBar = () => {
                                     <div className="card-body p-3 py-0">
                                         <div className="table-responsive">
                                             <table className="table text-center bg-pink-hover tr-rounded order-tbl mt-2">
-                                              
-                                                <tbody>
-                                                        <tr  >
-                                                       
 
-                                                      
+                                                <tbody>
+                                                    <tr  >
+
+
+
                                                         <td className="text-start widn"> <img src={btcLogo} alt="" /></td>
-                                                        <td>  <p style={{margin:"0"}} className="txt sml">
+                                                        <td>  <p style={{ margin: "0" }} className="txt sml">
                                                             <Truncate
                                                                 offset={6}
                                                                 text={UserData.btcTokenAddress}
@@ -501,13 +524,13 @@ const RightWalletBar = () => {
                                                                 </g>
                                                             </svg>
                                                         )}</td>
-                                                        </tr>
-                                                        <tr  >
-                                                       
+                                                    </tr>
+                                                    <tr  >
 
-                                                      
+
+
                                                         <td className="text-start widn"> <img src={ethLogo} alt="" /></td>
-                                                        <td>  <p style={{margin:"0"}} className="txt sml">
+                                                        <td>  <p style={{ margin: "0" }} className="txt sml">
                                                             <Truncate
                                                                 offset={6}
                                                                 text={UserData.ethTokenAddress}
@@ -560,8 +583,8 @@ const RightWalletBar = () => {
                                                                 </g>
                                                             </svg>
                                                         )}</td>
-                                                        </tr>
-                                                    
+                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -573,8 +596,8 @@ const RightWalletBar = () => {
                     </div>
                 </div > : ""}
             <div className="wallet-bar-close" onClick={() => setHeadWallet(true)}></div>
-          
-            
+
+
         </div>
     );
 };

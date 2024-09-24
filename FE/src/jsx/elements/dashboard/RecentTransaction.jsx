@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 import Btc from '../../../assets/images/svg/btc.svg';
 import UsdtLogo from "../../../assets/images/img/usdt-logo.svg"
+import SolLogo from "../../../assets/images/solana.png"
 
 import Dash from "../../../assets/images/svg/dash.svg"
 import Eth from "../../../assets/images/svg/eth.svg"
@@ -222,30 +223,36 @@ const RecentTransaction = () => {
                                                             ? <><img src={Eth} alt="" className="me-2 img-btc" />Ethereum</>
                                                             : Transaction.trxName === 'tether'
                                                                 ? <><img src={UsdtLogo} alt="" className="me-2 img-btc" />USDT</>
-                                                                : ""
+
+                                                                : Transaction.trxName === 'solana'
+                                                                    ? <><img src={SolLogo} alt="" className="me-2 img-btc" />Solana</>
+                                                                    : ""
                                                     }
 
 
                                                 </div></td>
                                                 {Transaction.type === 'deposit' ? (
-                                                    <td className="text-success font-w600">{`+$${
-                                                        Transaction.trxName === 'bitcoin'
-                                                            ? (Transaction.amount * liveBtc).toFixed(2)
-                                                            : Transaction.trxName === 'ethereum'
-                                                                ? (Transaction.amount * 2241.86).toFixed(2)
-                                                                : Transaction.trxName === 'tether'
-                                                                    ? Transaction.amount.toFixed(2)
+                                                    <td className="text-success font-w600">{`+$${Transaction.trxName === 'bitcoin'
+                                                        ? (Transaction.amount * liveBtc).toFixed(2)
+                                                        : Transaction.trxName === 'ethereum'
+                                                            ? (Transaction.amount * 2241.86).toFixed(2)
+                                                            : Transaction.trxName === 'tether'
+                                                                ? Transaction.amount.toFixed(2)
+                                                                : Transaction.trxName === 'solana'
+                                                                    ? (Transaction.amount * 147.06).toFixed(2)
                                                                     : (0).toFixed(2)
-                                                    }`}</td>
+                                                        }`}</td>
                                                 ) : Transaction.type === 'withdraw' ? (
-                                                        <td className="text-danger font-w600"> {`-$${Transaction.trxName === 'bitcoin'
-                                                            ? Math.abs((Transaction.amount * liveBtc)).toFixed(2)
-                                                            : Transaction.trxName === 'ethereum'
-                                                                ? Math.abs((Transaction.amount * 2241.86)).toFixed(2)
-                                                                : Transaction.trxName === 'tether'
-                                                                    ? Math.abs(Transaction.amount).toFixed(2)
+                                                    <td className="text-danger font-w600"> {`-$${Transaction.trxName === 'bitcoin'
+                                                        ? Math.abs(Transaction.amount * liveBtc).toFixed(2)
+                                                        : Transaction.trxName === 'ethereum'
+                                                            ? Math.abs(Transaction.amount * 2241.86).toFixed(2)
+                                                            : Transaction.trxName === 'tether'
+                                                                ? Math.abs(Transaction.amount).toFixed(2)
+                                                                : Transaction.trxName === 'solana'
+                                                                    ? Math.abs(Transaction.amount * 147.06).toFixed(2)
                                                                     : (0).toFixed(2)
-                                                            }`}</td>
+                                                        }`}</td>
                                                 ) : null}
                                                 {Transaction.status === "completed" ? <td className="text-end">
                                                     <div className={`badge badge-sm badge-success`}>

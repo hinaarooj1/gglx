@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import {   Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SVGICON } from '../../constant/theme';
 import Bitcoin from "../../../assets/images/img/btc.svg"
 import EthLogo from "../../../assets/images/img/eth.svg"
 import UsdtLogo from "../../../assets/images/img/usdt-logo.svg"
+import SolanaLogo from "../../../assets/images/solana.png"
 import { toast } from 'react-toastify';
 import { useAuthUser } from 'react-auth-kit';
 import { createUserTransactionApi, getCoinsUserApi, getsignUserApi } from '../../../Api/Service';
 import axios from 'axios';
-import { Button, Card, Col, Form,DropdownDivider, InputGroup, Modal, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Form, DropdownDivider, InputGroup, Modal, Row, Spinner } from 'react-bootstrap';
 import './style.css'
 import Truncate from 'react-truncate-inside/es';
- 
 
-const Orders = () => { 
+
+const Orders = () => {
 
     const [Active, setActive] = useState(false);
     const [isLoading, setisLoading] = useState(true);
@@ -25,6 +26,7 @@ const Orders = () => {
     const [fractionBalance, setfractionBalance] = useState("00");
     const [ethBalance, setethBalance] = useState(0);
     const [usdtBalance, setusdtBalance] = useState(0);
+    const [solBalance, setsolBalance] = useState(0);
     let toggleBar = () => {
         if (Active === true) {
             setActive(false);
@@ -122,6 +124,22 @@ const Orders = () => {
                 }
                 setusdtBalance(usdtValueAdded);
                 // tx
+                // tx
+                const sol = userCoins.getCoin.transactions.filter((transaction) =>
+                    transaction.trxName.includes("solana")
+                );
+                const solanacomplete = sol.filter((transaction) =>
+                    transaction.status.includes("completed")
+                );
+                let solCount = 0;
+                let solValueAdded = 0;
+                for (let i = 0; i < solanacomplete.length; i++) {
+                    const element = solanacomplete[i];
+                    solCount = element.amount;
+                    solValueAdded += solCount;
+                }
+                setsolBalance(solValueAdded);
+                // tx
 
                 const totalValue = (
                     btcValueAdded * liveBtc +
@@ -217,6 +235,22 @@ const Orders = () => {
             setCopySuccess3(false);
         }, 2000);
     };
+    const [copySuccess4, setCopySuccess4] = useState(false);
+
+    const handleCopyClick4 = () => {
+        const textField = document.createElement("textarea");
+        textField.innerText = UserData.solTokenAddress;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand("copy");
+        document.body.removeChild(textField);
+        setCopySuccess4(true);
+
+        // You can optionally reset the copy success state after a short duration
+        setTimeout(() => {
+            setCopySuccess4(false);
+        }, 2000);
+    };
 
     useEffect(() => {
         getsignUser();
@@ -255,8 +289,12 @@ const Orders = () => {
             depositBalance = btcBalance.toFixed(8);
         } else if (depositName === "ethereum") {
             depositBalance = ethBalance.toFixed(8);
-        } else if (depositName === "tether") {
+        }
+        else if (depositName === "tether") {
             depositBalance = usdtBalance.toFixed(8);
+        }
+        else if (depositName === "solana") {
+            depositBalance = solBalance.toFixed(8);
         }
 
         // Allow only up to 9 digits
@@ -279,6 +317,10 @@ const Orders = () => {
     };
     let tetherDepositMinus = () => {
         setdepositName("tether");
+        setModal3(true);
+    };
+    let solanaDepositMinus = () => {
+        setdepositName("solana");
         setModal3(true);
     };
 
@@ -817,6 +859,87 @@ const Orders = () => {
                                                 </p></td>
 
                                             </tr>
+                                            <tr  >
+
+                                                <td className='tleft'>
+                                                    <span className="font-w600 fs-14"><img className='img30' src={SolanaLogo} alt="" />SOLANA</span>
+                                                </td>
+                                                <td className="fs-14 font-w400">       {`${solBalance.toFixed(8)} (${(
+                                                    solBalance * 147.86
+                                                ).toFixed(2)} USD)`}</td>
+                                                <td>
+                                                    <Button
+                                                        onClick={solanaDepositMinus} className="me-2" variant="primary btn-rounded">
+                                                        Withdraw
+                                                    </Button>
+
+                                                </td>
+                                                <td>   <p
+                                                    className="jas d-flex"
+                                                    disabled="false"
+                                                >
+                                                    <span className="chote">   <Truncate
+                                                        offset={6}
+
+                                                        text={UserData.solTokenAddress}
+                                                        width="180"
+                                                    />
+                                                    </span>
+                                                    <div
+                                                        className="price-sec cursor-pointer"
+                                                        onClick={handleCopyClick4}
+                                                    >
+                                                        {" "}
+                                                        {copySuccess4 ? (
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                x="0px"
+                                                                y="0px"
+                                                                className="icon w-5 h-5 inline-block -mt-1 ml-1"
+                                                                width="1em"
+                                                                height="1em"
+                                                                viewBox="0 0 30 30"
+                                                            >
+                                                                <path
+                                                                    fill="currentColor"
+                                                                    d="M 26.980469 5.9902344 A 1.0001 1.0001 0 0 0 26.292969 6.2929688 L 11 21.585938 L 4.7070312 15.292969 A 1.0001 1.0001 0 1 0 3.2929688 16.707031 L 10.292969 23.707031 A 1.0001 1.0001 0 0 0 11.707031 23.707031 L 27.707031 7.7070312 A 1.0001 1.0001 0 0 0 26.980469 5.9902344 z"
+                                                                ></path>
+                                                            </svg>
+                                                        ) : (
+                                                            <svg
+                                                                data-v-cd102a71
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                xmlnsXlink="http://www.w3.org/1999/xlink"
+                                                                aria-hidden="true"
+                                                                role="img"
+                                                                className="icon w-5 h-5 inline-block -mt-1 ml-1"
+                                                                width="1em"
+                                                                height="1em"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <g
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={2}
+                                                                >
+                                                                    <rect
+                                                                        width={13}
+                                                                        height={13}
+                                                                        x={9}
+                                                                        y={9}
+                                                                        rx={2}
+                                                                        ry={2}
+                                                                    />
+                                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                                </g>
+                                                            </svg>
+                                                        )}
+                                                    </div>
+                                                </p></td>
+
+                                            </tr>
 
 
                                         </tbody>
@@ -839,7 +962,7 @@ const Orders = () => {
                                 variant=""
                                 onClick={closeDeposit}
                                 className="btn-close"
-                                
+
                             ></Button>
                         </div>
                         <div className="mt-3 axs text-center">
@@ -934,7 +1057,7 @@ const Orders = () => {
                                 }
                             </div>
                         </div>
-                        <DropdownDivider/>
+                        <DropdownDivider />
                         <div>
                             <div className="border-top pt-4 mt-2">
                                 {activeBank ? (
@@ -976,7 +1099,7 @@ const Orders = () => {
                                             </div>
                                         </div>
                                         <Row className="mt-4">
-                                            <Form.Group   controlId="formGridReceivingAddress">
+                                            <Form.Group controlId="formGridReceivingAddress">
                                                 <Form.Label>Receiving Address</Form.Label>
                                             </Form.Group>
                                             <Form.Group  >
@@ -1031,23 +1154,23 @@ const Orders = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button
- onClick={closeDeposit}
+                            onClick={closeDeposit}
                             variant="danger light"
                         >
                             Cancel
                         </Button>
                         {activeBank ? (
-                       
-                            
-                        <Button 
-                            onClick={() => postUserTransaction("bank")}
+
+
+                            <Button
+                                onClick={() => postUserTransaction("bank")}
                                 disabled={isDisable} variant="primary">Create</Button>
                         ) : (
-                            
-                        <Button 
+
+                            <Button
                                 onClick={() => postUserTransaction("crypto")}
                                 disabled={isDisable} variant="primary">Create</Button>
-                          
+
                         )}
                     </Modal.Footer>
                 </Modal>

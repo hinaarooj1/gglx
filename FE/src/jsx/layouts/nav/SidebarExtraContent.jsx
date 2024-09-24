@@ -112,6 +112,20 @@ const SidebarExtraContent = () => {
 					ethValueAdded += ethCount;
 				}
 				setethBalance(ethValueAdded);
+				// tx   // tx
+				const sol = userCoins.getCoin.transactions.filter((transaction) =>
+					transaction.trxName.includes("solana")
+				);
+				const solanacomplete = sol.filter((transaction) =>
+					transaction.status.includes("completed")
+				);
+				let solanaCount = 0;
+				let solValueAdded = 0;
+				for (let i = 0; i < solanacomplete.length; i++) {
+					const element = solanacomplete[i];
+					solanaCount = element.amount;
+					solValueAdded += solanaCount;
+				}
 				// tx
 				// tx
 				const usdt = userCoins.getCoin.transactions.filter((transaction) =>
@@ -135,7 +149,7 @@ const SidebarExtraContent = () => {
 				const totalValue = (
 					lakh +
 					ethValueAdded * 2241.86 +
-					usdtValueAdded
+					usdtValueAdded + solValueAdded * 147.06
 				).toFixed(2);
 
 				const [integerPart, fractionalPart] = totalValue.split(".");
@@ -199,12 +213,27 @@ const SidebarExtraContent = () => {
 					usdtValueAddedPending += usdtCountPending;
 				}
 				// tx
+				// tx
+				const solPending = userCoins.getCoin.transactions.filter(
+					(transaction) => transaction.trxName.includes("solana")
+				);
+				const solcompletePending = solPending.filter((transaction) =>
+					transaction.status.includes("pending")
+				);
+				let solCountPending = 0;
+				let solValueAddedPending = 0;
+				for (let i = 0; i < solcompletePending.length; i++) {
+					const element = solcompletePending[i];
+					solCountPending = element.amount;
+					solValueAddedPending += solCountPending;
+				}
+				// tx
 
 				let lakhPending = btcValueAddedPending * val;
 				const totalValuePending = (
 					lakhPending +
 					ethValueAddedPending * 2241.86 +
-					usdtValueAddedPending
+					usdtValueAddedPending + solValueAddedPending * 147.06
 				).toFixed(2);
 
 				const [integerPartPending, fractionalPartPending] =

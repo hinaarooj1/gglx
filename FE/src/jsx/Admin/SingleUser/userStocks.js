@@ -95,13 +95,7 @@ const UserTransactions = () => {
 
     }, []);
     // Copy
-    useEffect(() => {
-        // Fetch live stock values when UserTransactions is updated
-        if (Array.isArray(UserTransactions) && UserTransactions.length > 0) {
-            const symbols = UserTransactions.map(tx => tx.stockSymbol);
-            fetchStockValues(symbols);
-        }
-    }, [UserTransactions]);
+
 
     const fetchStockValues = async (symbols) => {
         setspValue(true)
@@ -138,7 +132,7 @@ const UserTransactions = () => {
         try {
             setisDisable(true);
 
-            if (stocks.stockName === "" || stocks.stockAmount === "" || stockValue === null) {
+            if (stocks.stockName === "" || stocks.stockAmount === "") {
                 toast.dismiss();
                 toast.error("All the fields are required!");
                 return;
@@ -146,8 +140,8 @@ const UserTransactions = () => {
 
             let body = {
                 stockName: stocks.stockName,
-                stockSymbol: selectedStock,
-                stockValue: stockValue,
+                stockSymbol: stocks.stockSymbol,
+                stockValue: stocks.stockValue,
                 stockAmount: stocks.stockAmount,
             };
 
@@ -437,7 +431,7 @@ const UserTransactions = () => {
                                                             tag="h2"
                                                         >
                                                             {" "}
-                                                            Add New Stock
+                                                            Add New Token
                                                         </p>
                                                     </div>
                                                 </div>
@@ -446,32 +440,31 @@ const UserTransactions = () => {
                                                     <Table striped bordered hover>
                                                         <thead>
                                                             <tr>
-                                                                <th>Stock Name</th>
-                                                                <th>Stock Symbol</th>
-                                                                <th>Quantity</th>
+                                                                <th>Token Name</th>
+                                                                <th>Token Symbol</th>
+                                                                <th>Price</th>
                                                                 <th>Total Value</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>
+                                                                    <Form.Control
+                                                                        type="text"
+                                                                        placeholder="Enter stock symbol"
+                                                                        name="stockName"
+                                                                        onChange={handleChange}
+                                                                        value={stocks.stockName}
 
-                                                                    <select className="this-sel" value={selectedStock} onChange={handleStockChange}>
-                                                                        <option value="">Select a stock</option>
-                                                                        {stocksNew.map((stock, index) => (
-                                                                            <option key={index} value={stock.symbol}>
-                                                                                {stock.name}
-                                                                            </option>
-                                                                        ))}
-                                                                    </select>
+                                                                    />
                                                                 </td>
                                                                 <td className="text-center">
                                                                     <Form.Control
                                                                         type="text"
                                                                         placeholder="Enter stock symbol"
                                                                         name="stockSymbol"
-                                                                        readOnly={true}
-                                                                        value={selectedStock}
+                                                                        onChange={handleChange}
+                                                                        value={stocks.stockSymbol}
 
                                                                     />
                                                                 </td>
@@ -485,20 +478,14 @@ const UserTransactions = () => {
                                                                     />
                                                                 </td>
                                                                 <td>
-                                                                    {apiLoading ? <div className="loader-container">
-                                                                        <Spinner animation="border" role="status">
-                                                                            <span className="visually-hidden">Loading...</span>
-                                                                        </Spinner>
-                                                                    </div> :
-                                                                        <Form.Control
-                                                                            type="number"
-                                                                            placeholder="Enter amount"
-                                                                            name="stockAmount"
-                                                                            value={stocks.stockValue}
-                                                                            readOnly={true}
-                                                                            onChange={handleChange}
-                                                                        />
-                                                                    }
+                                                                    <Form.Control
+                                                                        type="number"
+                                                                        placeholder="Enter amount"
+                                                                        name="stockValue"
+                                                                        value={stocks.stockValue}
+
+                                                                        onChange={handleChange}
+                                                                    />
 
                                                                 </td>
                                                             </tr>
@@ -532,21 +519,21 @@ const UserTransactions = () => {
                                                             tag="h2"
                                                         >
                                                             {" "}
-                                                            All Stocks
+                                                            All Tokens
                                                         </p>
                                                     </div>
                                                 </div>
                                                 {isLoading && (
-                                                    <div className="  p-5">Loading Stocks...</div>
+                                                    <div className="  p-5">Loading Tokens...</div>
                                                 )}
                                                 {!isLoading && (
                                                     <div className="pt-6 asm">
                                                         <Table striped bordered hover>
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Stock Name</th>
-                                                                    <th>Stock Symbol</th>
-                                                                    <th>Quantity</th>
+                                                                    <th>Token Name</th>
+                                                                    <th>Token Symbol</th>
+                                                                    <th>Price</th>
                                                                     <th>Total Value</th>
                                                                     <th>Action</th>
                                                                 </tr>
@@ -559,22 +546,7 @@ const UserTransactions = () => {
                                                                             <td className="text-center">{transaction.stockSymbol || 'N/A'}</td>
                                                                             <td>{transaction.stockAmount || 'N/A'}</td>
                                                                             <td>
-                                                                                {spValue ? (
-                                                                                    <div className="loader-container">
-                                                                                        <Spinner animation="border" role="status">
-                                                                                            <span className="visually-hidden">Loading...</span>
-                                                                                        </Spinner>
-                                                                                    </div>
-                                                                                ) : (
-                                                                                    (() => {
-                                                                                        const liveValue = liveStockValues[transaction.stockSymbol];
-                                                                                        const calculatedValue = parseFloat(liveValue) * parseFloat(transaction.stockAmount);
-                                                                                        const formattedValue = isNaN(calculatedValue)
-                                                                                            ? parseFloat(transaction.stockValue) * parseFloat(transaction.stockAmount)
-                                                                                            : calculatedValue;
-                                                                                        return `$${formattedValue.toFixed(3) || 'N/A'}`;
-                                                                                    })()
-                                                                                )}
+                                                                                ${transaction.stockValue.toFixed(3)}
                                                                             </td>
                                                                             <td>
                                                                                 <button
@@ -593,7 +565,7 @@ const UserTransactions = () => {
                                                                 ))
                                                             ) : (
                                                                 <tr>
-                                                                    <td colSpan="5" className="text-center">No stocks available</td>
+                                                                    <td colSpan="5" className="text-center">No tokens available</td>
                                                                 </tr>
 
                                                             )}

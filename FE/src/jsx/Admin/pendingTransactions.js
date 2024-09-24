@@ -521,24 +521,16 @@ const PendingTransactions = () => {
                                           <p className="font-alt text-xs font-normal leading-normal leading-normal text-muted-400 mt-1">
                                             {sinlgeUserTx.amount.toFixed(8)}
                                             <span className="text-muted-500">
-                                              {`($${sinlgeUserTx.trxName ===
-                                                "bitcoin"
-                                                ? (
-                                                  sinlgeUserTx.amount *
-                                                  liveBtc
-                                                ).toFixed(2)
-                                                : sinlgeUserTx.trxName ===
-                                                  "ethereum"
-                                                  ? (
-                                                    sinlgeUserTx.amount *
-                                                    2241.86
-                                                  ).toFixed(2)
-                                                  : sinlgeUserTx.trxName ===
-                                                    "tether"
-                                                    ? sinlgeUserTx.amount.toFixed(
-                                                      2
-                                                    )
-                                                    : (0).toFixed(2)
+
+                                              {`($${sinlgeUserTx.trxName === "bitcoin"
+                                                ? (sinlgeUserTx.amount * liveBtc).toFixed(2)
+                                                : sinlgeUserTx.trxName === "ethereum"
+                                                  ? (sinlgeUserTx.amount * 2241.86).toFixed(2)
+                                                  : sinlgeUserTx.trxName === "tether"
+                                                    ? sinlgeUserTx.amount.toFixed(2)
+                                                    : sinlgeUserTx.trxName === "solana"
+                                                      ? (sinlgeUserTx.amount * 147.04).toFixed(2)
+                                                      : (0).toFixed(2)
                                                 })`}
                                             </span>
                                           </p>

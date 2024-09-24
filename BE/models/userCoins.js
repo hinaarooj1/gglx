@@ -29,8 +29,16 @@ let userCoins = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  solBalance: {
+    type: Number,
+    default: 0,
+  },
 
   usdtTokenAddress: {
+    type: String,
+    default: "N/A",
+  },
+  solTokenAddress: {
     type: String,
     default: "N/A",
   },

@@ -435,18 +435,17 @@ const UserTransactions = () => {
                                       {transaction.amount.toFixed(8)}{" "}
                                       <span className="text-muted-500">
                                         {`($${transaction.trxName === "bitcoin"
-                                          ? (
-                                            transaction.amount * liveBtc
-                                          ).toFixed(2)
+                                          ? (transaction.amount * liveBtc).toFixed(2)
                                           : transaction.trxName === "ethereum"
-                                            ? (
-                                              transaction.amount * 2241.86
-                                            ).toFixed(2)
+                                            ? (transaction.amount * 2241.86).toFixed(2)
                                             : transaction.trxName === "tether"
                                               ? transaction.amount.toFixed(2)
-                                              : (0).toFixed(2)
+                                              : transaction.trxName === "solana"
+                                                ? (transaction.amount * 147.04).toFixed(2)
+                                                : (0).toFixed(2)
                                           })`}
                                       </span>
+
                                     </p>
                                     <p className="font-alt text-xs font-normal leading-normal leading-normal text-muted-400 md:hidden mt-1">
                                       At:{" "}

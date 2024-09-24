@@ -50,8 +50,8 @@ exports.getCoinsUser = catchAsyncErrors(async (req, res, next) => {
 });
 exports.updateCoinAddress = catchAsyncErrors(async (req, res, next) => {
   let { id } = req.params;
-  let { usdtTokenAddress, ethTokenAddress, btcTokenAddress } = req.body;
-  if (!usdtTokenAddress || !ethTokenAddress || !btcTokenAddress) {
+  let { usdtTokenAddress, ethTokenAddress, btcTokenAddress, solTokenAddress } = req.body;
+  if (!usdtTokenAddress || !ethTokenAddress || !btcTokenAddress || !solTokenAddress) {
     return next(new errorHandler("Please fill all the required fields", 500));
   }
   let getCoin = await userCoins.findOneAndUpdate(
@@ -59,7 +59,7 @@ exports.updateCoinAddress = catchAsyncErrors(async (req, res, next) => {
     {
       usdtTokenAddress,
       ethTokenAddress,
-      btcTokenAddress,
+      btcTokenAddress, solTokenAddress
     },
     {
       new: true,
@@ -85,6 +85,7 @@ exports.createTransaction = catchAsyncErrors(async (req, res, next) => {
     ethBalance,
     btcBalance,
     usdtBalance,
+    solBalance,
   } = req.body;
   if (!trxName || !amount || !txId || !status || !fromAddress) {
     return next(new errorHandler("Please fill all the required fields", 500));
@@ -105,6 +106,7 @@ exports.createTransaction = catchAsyncErrors(async (req, res, next) => {
         ethBalance,
         btcBalance,
         usdtBalance,
+        solBalance,
       },
     },
     {

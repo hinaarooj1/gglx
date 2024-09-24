@@ -71,7 +71,7 @@ export default function Router() {
             }
           />
           <Route
-            path="/stocks/:id"
+            path="/tokens/:id"
             element={
               <RequireAuth loginPath={"/auth/login"}>
                 <Stocks />

@@ -150,7 +150,7 @@ function Login(props) {
 
 		<>
 			<div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
-				<div className="login-aside text-center  d-flex flex-column flex-row-auto">
+				<div style={{ justifyContent: "center" }} className="login-aside text-center  d-flex flex-column flex-row-auto">
 					<div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 						<Link to='/' className="text-center mb-lg-4 mb-2 pt-5 logo">
 							<img className="logoaimg" src={LogoNew} alt="" />
@@ -159,11 +159,12 @@ function Login(props) {
 						<h3 className="mb-2 text-white">Welcome back!</h3>
 						<p className="mb-4"> Login with social media or your credentials</p>
 					</div>
-					<div className="aside-image position-relative" style={{ backgroundImage: `url(${IMAGES.BgPic2})` }}>
+
+					{/* <div className="aside-image position-relative" style={{ backgroundImage: `url(${IMAGES.BgPic2})` }}>
 						<img className="img1 move-1" src={IMAGES.BgPic3} alt="" />
 						<img className="img2 move-2" src={IMAGES.BgPic4} alt="" />
 						<img className="img3 move-3" src={IMAGES.BgPic5} alt="" />
-					</div>
+					</div> */}
 				</div>
 				<div className="container flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
 					<div className="d-flex justify-content-center h-100 align-items-center">

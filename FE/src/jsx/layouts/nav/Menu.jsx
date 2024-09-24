@@ -140,11 +140,11 @@ const useMenuList = () => {
 
         },
         {
-            title: 'My Stocks',
+            title: 'My Tokens',
             classsChange: 'mm-active',
 
 
-            to: Admin ? `/stocks/${Admin._id}` : '#',
+            to: Admin ? `/tokens/${Admin._id}` : '#',
             iconStyle: <i className="material-symbols-outlined">table</i>,
 
         },
